@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import spring.batch.teamPerformanceJob.domain.AverageScoredTeam;
 import spring.batch.teamPerformanceJob.domain.Team;
 
@@ -23,7 +24,7 @@ public class TeamAverageProcessor implements ItemProcessor<Team, AverageScoredTe
     private StepExecution stepExecution;
 
     @Override
-    public AverageScoredTeam process(Team team) throws Exception {
+    public AverageScoredTeam process(@NonNull Team team) throws Exception {
         if (stepExecution == null) {
             throw new RuntimeException("Team average processor can not execute without step execution set");
         }
