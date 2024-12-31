@@ -151,6 +151,13 @@ public class TeamPerformanceJobConfiguration {
                 .skip(IndexOutOfBoundsException.class)
                 .noSkip(NullPointerException.class)
                 .skipLimit(40)
+                .listener(new SkipListener<Team, AverageScoredTeam>() {
+                    @Override
+                    public void onSkipInProcess(Team team, Throwable t) {
+                        log.info("Error while processing team {}, item is skipped", team.getName());
+                        log.info("Reason: {} -> {}", t.getClass().getName(), t.getLocalizedMessage());
+                    }
+                })
                 .build();
     }
 
